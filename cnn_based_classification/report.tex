@@ -21,11 +21,11 @@
 
 % Pages are numbered in submission mode, and unnumbered in camera-ready
 %\ifcvprfinal\pagestyle{empty}\fi
-\setcounter{page}{4321}
+\setcounter{page}{2571}
 \begin{document}
 
 %%%%%%%%% TITLE
-\title{\LaTeX\ Author Guidelines for CVPR Proceedings}
+\title{	CNN Based Image Classification}
 
 \author{Xiaoling Long\\
 SIST\\
@@ -76,6 +76,27 @@ should read this new version.
 \section{CNN Part}
 
 \section{CNN Based Image classification}
+Traditional image classifition pipeline is extracting feature, building bag of feature then put into classifier. \cite{} propose a CNN based feature extractor. This is an unsurpervising learning ConvNet or in other words, input image is also the kind of ground truth. After feature extracting, the final result can classify by any classifier.
+\par
+The ImageNet Large Scale Visual Recognition Challenge(ILSRC) is a benchmark in object category classification and detection on $1000$-classes and millions of images. After AlexNet achieved hugu success in ILSRC-2012, there are various variations of AlexNet\cite{} and many other types of ConvNet for image classification. Since that, ConvNet is widely used for image classification. \cite{review} illustrate beriefly what is ConvNet, the components of ConvNet, the activation function in ConvNet, from LeNet to ResNet bunch of successful ConvNet and some open issues on CNN based image classification.
+
+\par
+AlexNet\cite{} brought Convolutional neural network into ILSRC. In this implementation, it contains 8 layers \- 5 convolutional and 3 fully-conneted. The main features of this network's architecture are ReLU\cite{relu} as activation function, overlapping pooling and skills for reducing overfitting. Based on ReLU and overlapping pooling, the network err rate has more or less reduction, and ReLU network learn several times faster than other saturating acitvation function such as tanh neurons network. Overfitting is common issue for machine learning, it uses data augmentation and dropout to avoid overfit. Dropout is a skill to reduce argument or increase hypothesis. There are many discuss about this. As to data augmentation, it enlarge the dataset by cropping $224\times 224$ patched from the original image as well as these patchs' horizontal refliction. At the end averaging the predications as final socre.
+\par
+OverFeat\cite{} is a integrated recognition, localization and detection. This network uses CNN extract feature from image and then perform classification and localization and detection. Multi-scale classification brought up in \cite{} to increase accuracy.
+\par
+``Networ In Network"\cite{} propsed a new deep network structure. Different from conventional convolution layer, it brings up a new Mlpconv layer. This Mlpconv layer consist of sliding multilayer perceptron(MLP) window. In stead of fully-connected layer at the top of network, global average pooling is used to produce the resulting vector fed directly into the softmax layer. Verified by experiments, this NIN structure indeed works well on some benchmark datasets, and global average pooling can be regarded as regularizer. THis glolbal average pooling has no parameter. This stratety is used widely afterwards. $1\times 1$ convolution conception proposed in \cite{} is used in GoogLeNet for dimension reduction.
+
+\par
+AlexNet make a great success in image classification. Afterwards many various Network appear. GoogLeNet\cite{} proposed by google is a new level of oganization in the form of the `` Inception module". This is a multi-scale arcthitecture. With the limitation of computational resource, it perform a $1\times 1 $ convolution to dimension reduction. Auxiliary classifier is also a brilliant strategy.This smart design makes a great success in ILSRC-2014. At the same time, the widely used ConvNet architecture VGGNet\cite{}  won the first place in \textit{Classification $+$ Localization competition}. It adds the number of layers up to $16-19$. Instead of $7\times 7$ convolution filter in \cite{}, it uses $3\times 3$ as convolution filter. After multiple layers, it can get similar effect as $7\times 7 $ one. This design significantly reduces the parameters, and then reduces the overfitting. It also means the number of layers significantly increases. Altering convolutional layers and poolint layer became a common used Network architecture.
+\par
+As the depth of ConvNet increasing, training gets more and more difficult. The training of very deep network becomes a open issue in CNN. Highway Networks\cite{} propose \textit{information highways} which allow unimpeded information flow across several layers. The \textit{transform gate} $T(x, W_{T})$ and the \textit{carry gate} $C(x, W_{C})$ proposed for decided how much flow pass through to output. The new model given by
+\begin{equation}
+  y_{output} = H(x, W_{H})\cdot T(x, W_{T}) + x\cdot C(x, W_{C})
+\end{equation}
+For simplicty, \cite{} set $C = 1 - T$. This design make training hundreds of layers be possible and the err rate just has slightly increase. This architecture promote the success of ResNet \cite{}. ResNet has similar structure as deep plain network stacked by dozens of convolution layers followed by global pooling layer and $1$ fully-connected layer. except shortcup connection. This design has a residual representation which called deep residual learning. This archicture keeps parameter less than VGG-19 model even the network has $152$ layers. This smart design make ResNet won first place in ILSRC-15.
+
+
 
 \section{Application}
 
