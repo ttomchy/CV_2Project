@@ -38,10 +38,10 @@ ShanghaiTech Univ.\\
 % just like the second author.
 % To save space, use either the email address or home page, not both
 \and
-Second Author\\
+Hongyu Chen\\
 SIST\\
 ShanghaiTech Univ.\\
-{\tt\small secondauthor@i2.org}
+{\tt\small chenhy3@shanghaitech.edu.cn}
 \and
 Second Author\\
 SIST\\
@@ -66,15 +66,21 @@ ShanghaiTech Univ.\\
 
 %%%%%%%%% BODY TEXT
 \section{Introduction}
+Image classification is a fundamental challenge in computer vision\cite{felzenszwalb2013visual}. Consider the problem of detecting objects from a category, such as people or cars, in static images. This is a difficult problem because objects in each category can vary greatly in appearance. Variations arise from changes in illumination, viewpoint, and intra-class variability of shape and other visual properties among object instances. For example, people wear different clothes and take a variety of poses while cars come in various shapes and colors.Classification   between   the   objects   is   easy   task   for  humans  but  it  has  proved  to  be  a  complex  problem for machines.Image classification refers to the labeling of images into one of a number of predefined categories.
+Image classification is an important and challenging task in various application domains, including biomedical imaging, biometry, video surveillance, vehicle navigation, industrial visual inspection, robot navigation, and remote sensing \cite{kamavisdar2013survey}.
 
-Please follow the steps outlined below when submitting your manuscript to
-the IEEE Computer Society Press.  This style guide now has several
-important modifications (for example, you are no longer warned against the
-use of sticky tape to attach your artwork to the paper), so all authors
-should read this new version.
+Image classification uses both supervised and unsupervised 
+Traditional  methods  of  computer  vision  and  machine
+learning cannot match human performance on tasks such
+as the recognition of handwritten digits or traffic signs.\cite{ciregancolumn}
+
+Non‐parametric  classifiers  such  as  decision tree   classifier,  neural   network,   SVM   classifier and knowledge based classification are also very common in image classification. 
+
+Disadvantages about the deep learning.For the deep learning based algorithm required the ability of labeled samples for training. The collection of labeled data is a time consuming process as well as costly. 
+
 
 %-------------------------------------------------------------------------
-\section{CNN Part}
+%\section{CNN Part}
 
 \section{CNN Based Image classification}
 
@@ -99,11 +105,55 @@ As the depth of ConvNet increasing, training gets more and more difficult. The t
 \end{equation}
 For simplicty, \cite{he2016deep} set $C = 1 - T$. This design make training hundreds of layers be possible and the err rate just has slightly increase. This architecture promote the success of ResNet \cite{he2016deep}. ResNet has similar structure as deep plain network stacked by dozens of convolution layers followed by global pooling layer and $1$ fully-connected layer. except shortcup connection. This design has a residual representation which called deep residual learning. This archicture keeps parameter less than VGG-19 model even the network has $152$ layers. This smart design make ResNet won first place in ILSRC-15.
 
+There are several works based on region based image classification.Such as \cite{girshick2015fast},\cite{DSDFGVFB}\cite{uijlings2013selective},\cite{alexe2012measuring}. Region based methods are computationally expensively.
 
 
-\section{Application}
+R-CNN and fast R-CNN is regioned based convolutional network method for object detection and image classification. In\cite{DSDFGVFB},they use the selective search to select those propose regions. Features are extracted from each proposal region. Then a SVM classifier is used for the category classification. This kind of algorithm need a  lot of time to process each image.  About $2000$ regions are proposed from each image where there maybe several objects in the image. 
+
+
+Compared to R-CNN\cite{DSDFGVFB}, Fast R-CNN\cite{girshick2015fast} employs several innovations to improve training and testing speed while also increasing detection accuracy. the fast R-CNN has several advantages: (1) higher detection quality  than  R-CNN ，（2） using  a multi task loss ,predict the object and its confidence. No disk storage is required for additional feature catching.The computation is shared during training. Fast achieves a near real time rates uses a very deep network.
+
+Proposal based image classification also contains some great work. Such as \cite{ren2017faster}\cite{redmon2016you}\cite{Redmon2016YOLO9000}\cite{yolov3}.
+
+
+
+Faster R-CNN\cite{ren2017faster} is another convolutional network which based on the region proposal methods. In \cite{ren2017faster},The author show that an algorithmic change computing proposals with a deep convolutional neural network leads to an elegant and effective solution where proposal computation is nearly cost-free given the detection network’s computation. They removed the select search algorithm replaced by a region proposal network.
+The high quality proposal is used by the Fast R-CNN network for detection and classification. For the very deep VGG-16 model the detection system has a frame rate of 5fps (including all steps) on a GPU, while achieving state-of-the-art object detection accuracy.
+
+
+Fast and Faster R-CNN focus on speeding up the R-CNN framework by sharing computation and using neural networks to propose regions instead
+of Selective Search. While they offer speed and accuracy improvements over R-CNN, both still fall short of real-time performance.
+Fast R-CNN speeds up the classification stage of R-CNN but it still relies on selective search which can take around 2 seconds per image to generate bounding box proposals.
+
+
+In \cite{redmon2016you}, the author achieves a real time detection and classification in $45$  frames per second. A smaller version of their network can be achieved by $ 155$ frames per second. The problem is view as a regression task. The output of the net contains five parameters. $(x,y,w,h,confidence)$ where $x,y,w,h$ means x location , y  location, the width and the height of the target, the probabilistic of the cell contains an object respectively. YOLO shares some similarities with R-CNN. Each grid
+cell proposes a potential bounding boxes and scores those boxes using convolutional features.
+
+\cite{liu2016ssd},the author propose an algorithm which can runs real time object detect and classification. A key feature of the SSD algorithm is that multi-scale of the convolutional bounding boxes outputs are attached to different feature maps.SSD is faster than R-CNN and its variants.
+
+\begin{figure}[htbp]
+	\begin{center}
+		\includegraphics[width=0.8\linewidth]{test.png}
+	\end{center}
+	\caption{Real-Time Systems on P ASCAL VOC 2007.Compar-
+		ing the performance and speed of fast detectors. Fast YOLO is
+		the fastest detector on record for P ASCAL VOC detection and is
+		still twice as accurate as any other real-time detector. YOLO is
+		10 mAP more accurate than the fast version while still well above
+		real-time in speed.}
+	\label{fig:lxsfvgong}
+	
+	Figure\ref{fig:lxsfvgong} shows the most famous network on image classification. The accuracy and the speed is shown on the table.
+	
+\end{figure}
+
+
+%\section{Application}
 
 \section{conclusion}
+
+In this paper we have discussed about the different types of image classification techniques. So this paper will help us in selecting an appropriate classification technique among all the available techniques.
+
 
 \newpage
 {\small
