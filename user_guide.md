@@ -4,13 +4,17 @@ how to login :
 
 ```
 ssh username@IP
-
 ```
+
 then input your passwd.
 
 
 ### How to Run Applications With GUI
-Some users may need to use softwares with GUI (e.g. matlab, pycharm), which is possible using ssh X11 forwarding. AI cluster is configured to support X11 forwarding, but users need to add extra lines into their ```.bashrc```  file to make X11 forwarding run properly. In order to enable X11 forwarding feature, add the following lines into ```.bashrc```:
+Some users may need to use softwares with GUI (e.g. matlab, pycharm), which is possible using ssh X11 forwarding. AI cluster is configured to support X11 forwarding, but users need to add extra lines into their ```.bashrc```  file to make X11 forwarding run properly. In order to enable X11 forwarding feature, add the following lines into
+ ```
+ .bashrc
+```
+
 ```
 export XAUTHORITY=/home/$(whoami)/.Xauthority
 if [ -f "./DISPLAY" ]
@@ -23,7 +27,6 @@ Then user should re-login AI cluster with
 
 ```
 ssh -X username@IP
-
 ```
 
 ### Recommend to use the anaconda to manage your environment
