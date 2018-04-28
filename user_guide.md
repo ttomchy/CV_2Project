@@ -34,7 +34,7 @@ ssh -X username@IP
    ```
      anaconda   
   ```
- ,please google it.
+ please google it.
 
 the docs about  ```conda```:  https://conda.io/docs/
 
@@ -59,7 +59,4 @@ scp -r username@10.19.124.11:/home/username/project1/result.txt /home/username/r
 ### Finally the most important thing of how to use the clusters
 
 
-You should write a script to  run your own work , here is a tutorial of how to use the
-```
-PBS
-``` https://wikis.nyu.edu/display/NYUHPC/Copy+of+Tutorial+-+Submitting+a+job+using+qsub
+You should write a script to  run your own work , here is a tutorial of how to use the```PBS:```https://wikis.nyu.edu/display/NYUHPC/Copy+of+Tutorial+-+Submitting+a+job+using+qsub
