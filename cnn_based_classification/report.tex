@@ -55,13 +55,7 @@ ShanghaiTech Univ.\\
 
 %%%%%%%%% ABSTRACT
 \begin{abstract}
-   The ABSTRACT is to be in fully-justified italicized text, at the top
-   of the left-hand column, below the author and affiliation
-   information. Use the word ``Abstract'' as the title, in 12-point
-   Times, boldface type, centered relative to the column, initially
-   capitalized. The abstract is to be in 10-point, single-spaced type.
-   Leave two blank lines after the Abstract, then begin the main text.
-   Look at previous CVPR abstracts to get a feel for style and length.
+   The convolution networks make a great success in image classification since AlexNet \cite{krizhevsky2012imagenet} proposed for classification in ImageNet chanllenge. This End-to-End training method make researcher focus more on how to build an efficient network. The user focus more on how to use convolution networks in their application. After AlexNet, there are many ConvNet architecture proposed, such as VGGNet \cite{simonyan2014very} and ResNet \cite{he2016deep}. These ConvNet architectures are widely  used in many actual real applications.
 \end{abstract}
 
 %%%%%%%%% BODY TEXT
@@ -69,14 +63,14 @@ ShanghaiTech Univ.\\
 Image classification is a fundamental challenge in computer vision\cite{felzenszwalb2013visual}. Consider the problem of detecting objects from a category, such as people or cars, in static images. This is a difficult problem because objects in each category can vary greatly in appearance. Variations arise from changes in illumination, viewpoint, and intra-class variability of shape and other visual properties among object instances. For example, people wear different clothes and take a variety of poses while cars come in various shapes and colors.Classification   between   the   objects   is   easy   task   for  humans  but  it  has  proved  to  be  a  complex  problem for machines.Image classification refers to the labeling of images into one of a number of predefined categories.
 Image classification is an important and challenging task in various application domains, including biomedical imaging, biometry, video surveillance, vehicle navigation, industrial visual inspection, robot navigation, and remote sensing \cite{kamavisdar2013survey}.
 
-Image classification uses both supervised and unsupervised 
+Image classification uses both supervised and unsupervised
 Traditional  methods  of  computer  vision  and  machine
 learning cannot match human performance on tasks such
 as the recognition of handwritten digits or traffic signs.\cite{ciregancolumn}
 
-Non‐parametric  classifiers  such  as  decision tree   classifier,  neural   network,   SVM   classifier and knowledge based classification are also very common in image classification. 
+Non‐parametric  classifiers  such  as  decision tree   classifier,  neural   network,   SVM   classifier and knowledge based classification are also very common in image classification.
 
-Disadvantages about the deep learning.For the deep learning based algorithm required the ability of labeled samples for training. The collection of labeled data is a time consuming process as well as costly. 
+Disadvantages about the deep learning.For the deep learning based algorithm required the ability of labeled samples for training. The collection of labeled data is a time consuming process as well as costly.
 
 
 %-------------------------------------------------------------------------
@@ -108,7 +102,7 @@ For simplicty, \cite{he2016deep} set $C = 1 - T$. This design make training hund
 There are several works based on region based image classification.Such as \cite{girshick2015fast},\cite{DSDFGVFB}\cite{uijlings2013selective},\cite{alexe2012measuring}. Region based methods are computationally expensively.
 
 
-R-CNN and fast R-CNN is regioned based convolutional network method for object detection and image classification. In\cite{DSDFGVFB},they use the selective search to select those propose regions. Features are extracted from each proposal region. Then a SVM classifier is used for the category classification. This kind of algorithm need a  lot of time to process each image.  About $2000$ regions are proposed from each image where there maybe several objects in the image. 
+R-CNN and fast R-CNN is regioned based convolutional network method for object detection and image classification. In\cite{DSDFGVFB},they use the selective search to select those propose regions. Features are extracted from each proposal region. Then a SVM classifier is used for the category classification. This kind of algorithm need a  lot of time to process each image.  About $2000$ regions are proposed from each image where there maybe several objects in the image.
 
 
 Compared to R-CNN\cite{DSDFGVFB}, Fast R-CNN\cite{girshick2015fast} employs several innovations to improve training and testing speed while also increasing detection accuracy. the fast R-CNN has several advantages: (1) higher detection quality  than  R-CNN ，（2） using  a multi task loss ,predict the object and its confidence. No disk storage is required for additional feature catching.The computation is shared during training. Fast achieves a near real time rates uses a very deep network.
@@ -142,9 +136,9 @@ cell proposes a potential bounding boxes and scores those boxes using convolutio
 		10 mAP more accurate than the fast version while still well above
 		real-time in speed.}
 	\label{fig:lxsfvgong}
-	
+
 	Figure\ref{fig:lxsfvgong} shows the most famous network on image classification. The accuracy and the speed is shown on the table.
-	
+
 \end{figure}
 
 
