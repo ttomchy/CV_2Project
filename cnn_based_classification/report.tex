@@ -22,7 +22,7 @@
 
 % Pages are numbered in submission mode, and unnumbered in camera-ready
 %\ifcvprfinal\pagestyle{empty}\fi
-\setcounter{page}{2571}
+%\setcounter{page}{2571}
 \begin{document}
 
 %%%%%%%%% TITLE
@@ -43,10 +43,10 @@ SIST\\
 ShanghaiTech Univ.\\
 {\tt\small chenhy3@shanghaitech.edu.cn}
 \and
-Second Author\\
+Ruiqi Luo\\
 SIST\\
 ShanghaiTech Univ.\\
-{\tt\small secondauthor@i2.org}
+{\tt\small luorq@shanghaitech.edu.cn}
 }
 
 
@@ -74,7 +74,42 @@ Disadvantages about the deep learning.For the deep learning based algorithm requ
 
 
 %-------------------------------------------------------------------------
-%\section{CNN Part}
+\section{Evaluation standard}
+Two method are commons used for the image classification one is TOP 1 error another is TOP 5 error.
+TOP 1 error: The correct answer is the top guess.TOP 5 error: The correct answer is in the top-5 guess
+
+
+\section{Dataset}
+
+
+There are several common dataset for the image classification.such as the MINIST dataset\cite{lecun1998gradientbased},ImageNet\cite{russakovsky2015imagenet} 
+COCO dataset \cite{lin2014microsoft}.PASCAL\cite{pascal-voc-2012} CIFAR\cite{Krizhevsky2009Learning}and the Open Image which is from google.
+
+MNIST is a hand-written digital database with 60,000 training sample sets and 10,000 test sample sets. Each sample image has a height of 28*28.This dataset is stored in binary and cannot be viewed directly in image format, but it is easy to find tools to convert it to image format.
+
+ ImageNet is an image dataset organized according to the WordNet hierarchy. Each meaningful concept in WordNet, possibly described by multiple words or word phrases, is called a "synonym set" or "synset". There are more than 100,000 synsets in WordNet, majority of them are nouns (80,000+).
+
+
+COCO is a large-scale object detection, segmentation, and captioning dataset. COCO has several features:Object segmentation,Recognition in context
+Superpixel stuff segmentation,
+330K images ($>$200K labeled),
+1.5 million object instances,
+80 object categories,
+91 stuff categories,
+5 captions per image,
+250,000 people with keypoints.
+
+
+The main goal of this challenge is to recognize objects from a number of visual object classes in realistic scenes (i.e. not pre-segmented objects). It is fundamentally a supervised learning learning problem in that a training set of labelled images is provided. The twenty object classes that have been selected are: 
+
+Typical CIFAR daset contains  the  CIFAR-10 dataset ,he CIFAR-10 dataset consists of 60000 32x32 colour images in 10 classes, with 6000 images per class. There are 50000 training images and 10000 test images.
+
+The dataset is divided into five training batches and one test batch, each with 10000 images. The test batch contains exactly 1000 randomly-selected images from each class. The training batches contain the remaining images in random order, but some training batches may contain more images from one class than another. Between them, the training batches contain exactly 5000 images from each class.
+CIFAR-100 dataset
+This dataset is just like the CIFAR-10, except it has 100 classes containing 600 images each. There are 500 training images and 100 testing images per class. The 100 classes in the CIFAR-100 are grouped into 20 superclasses. Each image comes with a "fine" label (the class to which it belongs) and a "coarse" label (the superclass to which it belongs).
+
+Open Image is a data set that contains ~9 million image URLs. The images are divided into more than 6000 categories by tag annotations. The tags in the dataset contain more real-life entities than ImageNet (1000), which is enough for us to train deep neural networks from scratch.
+
 
 \section{CNN Based Image classification}
 
@@ -99,47 +134,133 @@ As the depth of ConvNet increasing, training gets more and more difficult. The t
 \end{equation}
 For simplicty, \cite{he2016deep} set $C = 1 - T$. This design make training hundreds of layers be possible and the err rate just has slightly increase. This architecture promote the success of ResNet \cite{he2016deep}. ResNet has similar structure as deep plain network stacked by dozens of convolution layers followed by global pooling layer and $1$ fully-connected layer. except shortcup connection. This design has a residual representation which called deep residual learning. This archicture keeps parameter less than VGG-19 model even the network has $152$ layers. This smart design make ResNet won first place in ILSRC-15.
 
-There are several works based on region based image classification.Such as \cite{girshick2015fast},\cite{DSDFGVFB}\cite{uijlings2013selective},\cite{alexe2012measuring}. Region based methods are computationally expensively.
 
 
-R-CNN and fast R-CNN is regioned based convolutional network method for object detection and image classification. In\cite{DSDFGVFB},they use the selective search to select those propose regions. Features are extracted from each proposal region. Then a SVM classifier is used for the category classification. This kind of algorithm need a  lot of time to process each image.  About $2000$ regions are proposed from each image where there maybe several objects in the image.
+Inception v1 network, stacking 1*1, 3*3, 5*5 conv and 3*3 pooling, on the one hand increases the network width, on the other hand increases the network adaptability to scale which is improved by \cite{szegedy2015going}. The figure \ref{fig:lojbknmng} is the most original version proposed in the paper. All the convolution kernels are done on all the outputs of the upper layer. The 5x5 convolution kernel requires too much calculation, resulting in The feature map is very thick. In order to avoid this phenomenon, the inception has the following structure. Before 3x3, before 5x5, add 1x1 convolutional kernels after max pooling to reduce the feature map thickness, which is the network structure of Inception v1.
+
+\begin{figure}[t]
+	\begin{center}
+		\includegraphics[width=0.8\linewidth]{Pic/18.jpg}
+	\end{center}
+	\caption{Original inception v1 network}
+	 \label{fig:lojbknmng}
+	\label{fig:onecol}
+\end{figure}
+
+\begin{figure}[t]
+	\begin{center}
+		\includegraphics[width=0.8\linewidth]{Pic/19.jpg}
+	\end{center}
+	\caption{Advanced inception v1 network}
+	 \label{fig:long}
+	\label{fig:onecol}
+\end{figure} 
+
+Because Inception v1 has 5*5 kernels which means 25 parameters, so in this article\cite{ioffe2015batch}, the author try to use two 3*3 kernels to replace the 5*5 kernel, which can reduce number of parameters and accelerate calculation. Inception v2 have batch normalization layer, which reduces internal covariate shift and normalized the output of each layer to an standard normal distribution.
+
+\begin{figure}[t]
+	\begin{center}
+		\includegraphics[width=0.8\linewidth]{Pic/16.jpg}
+	\end{center}
+	\caption{Difference between inception v2 and inception v1} \label{fig:long}
+	\label{fig:onecol}
+\end{figure}
+
+One of the most important improvements to inception v3 is factorization, which decomposes 7x7 into two one-dimensional convolutions (1x7, 7x1) and so do 3x3 (1x3, 3x1). This method can speeding up calculations (so we can use excess calculations capability to deepen the network), and can also split a conv into two convs, which further increases the depth of the network and increases the nonlinearity of the network. It is also worth noting that the network input has changed from 224x224 to 299x299. 35x35/17x17/8x8 modules are designed.\cite{szegedy2016rethinking}
+
+\begin{figure}[t]
+	\begin{center}
+		\includegraphics[width=0.8\linewidth]{Pic/17.jpg}
+	\end{center}
+	\caption{Difference between inception v3 and inception v2} \label{fig:long}
+	\label{fig:onecol}
+\end{figure}
+
+After Resnet v1 has been proposed, the google team find that the structure of Resnet can greatly speed up the training and improve performance at the same time. So they introduced the residual structure based on the inception v3, proposed the inception-resnet-v1 and inception-resnet-v2, and modified the inception module to propose an inception v4 structure\cite{szegedy2016inception-v4}. The inception-v4 network has become deeper than v3. Before the GAP Inception-v3 includes four convolutional module operations (one regular convolution block and three inception structures), and Inception-v4 has a six convolutional module. Comparing the number of convolution kernels of both, Inception-v4 also has a lot more increase than Inception-v3.
+
+Experiments based on inception v4 have found that similar results to the inception-resnet-v2 structure can be achieved without introducing a residual structure.So they combine the structure of Inception  get an Inception-ResNet v2 network, and also design a deeper and more optimized Inception v4 model that can achieve performance comparable to Inception-ResNet v2.
 
 
-Compared to R-CNN\cite{DSDFGVFB}, Fast R-CNN\cite{girshick2015fast} employs several innovations to improve training and testing speed while also increasing detection accuracy. the fast R-CNN has several advantages: (1) higher detection quality  than  R-CNN ，（2） using  a multi task loss ,predict the object and its confidence. No disk storage is required for additional feature catching.The computation is shared during training. Fast achieves a near real time rates uses a very deep network.
 
-Proposal based image classification also contains some great work. Such as \cite{ren2017faster}\cite{redmon2016you}\cite{Redmon2016YOLO9000}\cite{yolov3}.
-
-
-
-Faster R-CNN\cite{ren2017faster} is another convolutional network which based on the region proposal methods. In \cite{ren2017faster},The author show that an algorithmic change computing proposals with a deep convolutional neural network leads to an elegant and effective solution where proposal computation is nearly cost-free given the detection network’s computation. They removed the select search algorithm replaced by a region proposal network.
-The high quality proposal is used by the Fast R-CNN network for detection and classification. For the very deep VGG-16 model the detection system has a frame rate of 5fps (including all steps) on a GPU, while achieving state-of-the-art object detection accuracy.
-
-
-Fast and Faster R-CNN focus on speeding up the R-CNN framework by sharing computation and using neural networks to propose regions instead
-of Selective Search. While they offer speed and accuracy improvements over R-CNN, both still fall short of real-time performance.
-Fast R-CNN speeds up the classification stage of R-CNN but it still relies on selective search which can take around 2 seconds per image to generate bounding box proposals.
-
-
-In \cite{redmon2016you}, the author achieves a real time detection and classification in $45$  frames per second. A smaller version of their network can be achieved by $ 155$ frames per second. The problem is view as a regression task. The output of the net contains five parameters. $(x,y,w,h,confidence)$ where $x,y,w,h$ means x location , y  location, the width and the height of the target, the probabilistic of the cell contains an object respectively. YOLO shares some similarities with R-CNN. Each grid
-cell proposes a potential bounding boxes and scores those boxes using convolutional features.
-
-\cite{liu2016ssd},the author propose an algorithm which can runs real time object detect and classification. A key feature of the SSD algorithm is that multi-scale of the convolutional bounding boxes outputs are attached to different feature maps.SSD is faster than R-CNN and its variants.
 
 \begin{figure}[htbp]
-	\begin{center}
-		\includegraphics[width=0.8\linewidth]{./Pic/test.png}
-	\end{center}
-	\caption{Real-Time Systems on P ASCAL VOC 2007.Compar-
-		ing the performance and speed of fast detectors. Fast YOLO is
-		the fastest detector on record for P ASCAL VOC detection and is
-		still twice as accurate as any other real-time detector. YOLO is
-		10 mAP more accurate than the fast version while still well above
-		real-time in speed.}
-	\label{fig:lxsfvgong}
+	\centering
+	\includegraphics[width=0.8\linewidth]{Pic/16.png}
+	\caption{Single-crop top-1 validation accuracies for top scoring single-model architectures.  We introduce with this chart our choice of
+		colour  scheme,  which  will  be  used  throughout  this
+		publication to distinguish effectively different archi-
+		tectures and their correspondent authors.  Notice that
+		networks of the same group share the same hue, for
+		example ResNet are all variations of pink.}\label{fig:dkhgigit}
+\end{figure}
 
-	Figure\ref{fig:lxsfvgong} shows the most famous network on image classification. The accuracy and the speed is shown on the table.
+Figure\ref{fig:dkhgigit}, in \cite{canziani2016an} shows the result that Top1 error vs the  network. In the $x-axis$ ,we can see that the different types of the network. The accuracy get more and more accurate.The accuracy increase to about $80\%$ from lower than $55\%$. 
+
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.8\linewidth]{Pic/17.png}
+	\caption{Top 1 vs operations ,size $\infty$ parameters }\label{fig:dkgmhhgigit}
+\end{figure}
+
+
+
+Top-1 one-crop accuracy versus amount of operations
+required for a single forward pass.   The size of the
+blobs is proportional to the number of network pa-
+rameters; a legend is reported in the bottom right cor-
+ner, spanning fromparams. Both these figures share the same
+y-axis, and the grey dots  highlight the centre of the blobs
+Figure\ref{fig:dkgmhhgigit} shows the result that accuracy different size of 
+the models. The larger the model, the big the radius.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.8\linewidth]{Pic/18.png}
+	\caption{Top 1 vs operations ,size $\infty$ parameters }\label{fig:dkgmjklvhhgigit}
+\end{figure}
+
+Figure\ref{fig:dkgmjklvhhgigit}  in \cite{canziani2016an} shows the result that reference image. For each image that the VGG-NET need to take about $200ms$, This is because that the it is very large and there are a lot of parameters in it.
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\linewidth]{Pic/19.png}
+
+\caption{memory vs batch size }
+
+\label{fig:dkgmvfghgghjigit}
 
 \end{figure}
+
+Figure in \ref{fig:dkgmvfghgghjigit} in \cite{canziani2016an}, shows the the memory vs the batch size ,from the image we can see different size of the memory need for each model. Different model need different memorize at the initial point.With the batch size increases the memory increases. 
+
+
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.8\linewidth]{Pic/20.png}
+	
+	\caption{Operations	vs inference time ,size$\infty$	parameters.Relationship between operations and inference
+		time, for batches of size 1 and 16 (biggest size for which all architectures can still run).  Not surprisingly, we
+		notice a linear trend, and therefore operations count represent a good estimation of inference time. Furthermore,
+		we can notice an increase in the slope of the trend for larger batches, which correspond to shorter inference
+		time due to batch processing optimisation.}
+	
+	\label{fig:dkgmvfghghgghjigit}
+	
+\end{figure}
+
+
+
+Figure \ref{fig:dkgmvfghghgghjigit} in \cite{canziani2016an} shows the result that the operations with the inference time the operations is very large, the inference time is longer.
+
+
+
+
+
+
+
 
 \section{CNN based Medical Image Classification}
 
@@ -157,18 +278,18 @@ In this survey, I conducted an extensive set of experiments for 4 medical imagin
 
 Colorectal cancer (CRC) is one of the leading causes of deathworldwide with about estimated 700 thousand deaths in 2012\cite{zhang2017automatic}. Long-term follow-up studies confirmed that removal of adenomatous polyps reduces CRC mortality. Colonoscopy is the preferred technique for colon cancer screening and prevention. The goal of colonoscopy is to find and remove colonic polyps—precursors to colon cancer. But polyps can appear with substantial variations in color, shape, and size. The challenging appearance of polyps can often lead to misdetection\cite{ribeiro2016colonic}. Polyp miss-rates are estimated to be about 4\% to 12\%; however, a more recent clinical study is suggestive that this misdetection rate may be as high as 25\%. So nowadays, there are many research groups start to use computer aided method such as CNN.
 
-In the article\cite{ribeiro2016colonic}, the author have a small dataset, which only have 100 images(75 abnormal images and 25 healthy images). After finishing the data augmentation which results in 800 images, they resized the 256*256 image to 128*128. In order to test the five architecture they established, he used cross validation method(56 for training and 6 for testing), the result can be seen in Figure 1, the accuracy is just 75\% to 80\%.
+In the article\cite{ribeiro2016colonic}, the author have a small dataset, which only have 100 images(75 abnormal images and 25 healthy images). After finishing the data augmentation which results in 800 images, they resized the 256*256 image to 128*128. In order to test the five architecture they established, he used cross validation method(56 for training and 6 for testing), the result can be seen in Figure \ref{fig:lnvong}, the accuracy is just 75\% to 80\%.
 
 \begin{figure}[t]
 	\begin{center}
 		\includegraphics[width=0.8\linewidth]{Pic/4.png}
 	\end{center}
 	\caption{Accuracy results from different CNN configurations}
-	\label{fig:long}
-	\label{fig:onecol}
+	\label{fig:lnvong}
+
 \end{figure}
 
-In order to improve the accuracy, in the evaluation phase, the author obtained the final decision for a 256*256 pixel image by majority voting of the decisions of all 128*128 pixel subimages(patches). This is a kind of fine-tuning. The redundancy of overlapping subimages can increase the system accuracy likewise to give the assurance of certainty for the overall decision. The result can be seen in figure 2. They also perform a random patch extraction and it can be concluded that there is not much difference between 16384 subimages or
+In order to improve the accuracy, in the evaluation phase, the author obtained the final decision for a 256*256 pixel image by majority voting of the decisions of all 128*128 pixel subimages(patches). This is a kind of fine-tuning. The redundancy of overlapping subimages can increase the system accuracy likewise to give the assurance of certainty for the overall decision. The result can be seen in figure \ref{fig:loghmkng}. They also perform a random patch extraction and it can be concluded that there is not much difference between 16384 subimages or
 just 32 subimages (accuracy of 90.96\%), saving considerable computation time and achieving good results.
 
 \begin{figure}[t]
@@ -176,14 +297,14 @@ just 32 subimages (accuracy of 90.96\%), saving considerable computation time an
 		\includegraphics[width=0.8\linewidth]{Pic/5.png}
 	\end{center}
 	\caption{Accuracy of different strides for overlapping subimages in the evaluation.}
-	\label{fig:long}
-	\label{fig:onecol}
+	\label{fig:loghmkng}
+
 \end{figure}
 
 In the second article\cite{zhang2017automatic}, the author use a small datasets(PHW Database), this dataset consisted of 1104, 263 and
 563 images without polyps, with hyperplasia polyps and adenomatous polyps, respectively, taken under either WL or NBI endoscopy. For fair comparison, 50 images from each class (nonpolyp, hyperplasia, and adenoma) were randomly selected as testing dataset, while the rest were treated as training dataset.
 
-Because this dataset has an imbalanced number of images for each class, Previous study for polyp detection proposed to use an up/down sampling strategy to tackle such challenge. In this paper, the authors randomly down sampled the majority class to match the sample size of the minority class for both target tasks. The source dataset used ILSVRC and Places205 and trained for 450 000 iterations. They tested two tasks using this database, first is polyp detection and second polyp type classification. In order to do the evaluation, the authors used a feature engineering technique: bag-of-words for comparison. After finishing these tasks, we can see the results in the Figure 3.4.5. In these figures, we can see that transferring low-level CNN features gives better transfer learning performance for both target tasks and when a CNN structure is directly
+Because this dataset has an imbalanced number of images for each class, Previous study for polyp detection proposed to use an up/down sampling strategy to tackle such challenge. In this paper, the authors randomly down sampled the majority class to match the sample size of the minority class for both target tasks. The source dataset used ILSVRC and Places205 and trained for 450 000 iterations. They tested two tasks using this database, first is polyp detection and second polyp type classification. In order to do the evaluation, the authors used a feature engineering technique: bag-of-words for comparison. After finishing these tasks, we can see the results in the Figure \ref{fig:lofghmng},\ref{fig:lonmng},\ref{fig:longbng}. In these figures, we can see that transferring low-level CNN features gives better transfer learning performance for both target tasks and when a CNN structure is directly
 used for detection and classification. The performance of the proposed method is better in both tasks.
 
 \begin{figure}[t]
@@ -191,8 +312,8 @@ used for detection and classification. The performance of the proposed method is
 		\includegraphics[width=0.8\linewidth]{Pic/6.jpg}
 	\end{center}
 	\caption{Average accuracy of the detection and classification tasks by transferring C1–Cn features learned from ILSVRC and Places205 and using SVM as the classifier with a RBF kernel.}
-	\label{fig:long}
-	\label{fig:onecol}
+	\label{fig:lofghmng}
+
 \end{figure}
 
 \begin{figure}[t]
@@ -200,8 +321,8 @@ used for detection and classification. The performance of the proposed method is
 		\includegraphics[width=0.8\linewidth]{Pic/7.jpg}
 	\end{center}
 	\caption{Typical ROC curve for polyp classification for PWH database.}
-	\label{fig:long}
-	\label{fig:onecol}
+	\label{fig:lonmng}
+
 \end{figure}
 
 \begin{figure}[t]
@@ -209,8 +330,8 @@ used for detection and classification. The performance of the proposed method is
 		\includegraphics[width=0.8\linewidth]{Pic/8.jpg}
 	\end{center}
 	\caption{Average accuracy of the detection and classification tasks by transferring C1–Cn features learned from ILSVRC and using either RBF kernel SVM or a fully connected CNN layer with a softmax classifier}
-	\label{fig:long}
-	\label{fig:onecol}
+	\label{fig:longbng}
+
 \end{figure}
 
 \subsection{Tissue Detection and Classification}
@@ -222,11 +343,11 @@ In this part, I will choose two typical article to discuss. In the first article
 		\includegraphics[width=0.8\linewidth]{Pic/12.png}
 	\end{center}
 	\caption{Comparing the results training form scratch , using deep features via a pre-trained network with no change (FE-VGG16), and classification after fine-tuning a pre-trained network (TL-VGG16, TL-Inception-v3). The best scores are highlighted in bold.(\textit{$\eta_p$} means the patch-to-scan accuracy and \textit{$\eta_n$} means whole-scan accuracy)}
-	\label{fig:long}
-	\label{fig:onecol}
+	\label{fig:lovhgmjng}
+
 \end{figure}
 
-The result shows in figure 6 that pre-trained networks are quite competitive against training from scratch. In this figure, VGG16 and CNN are quite similar, whereas the results for Inception-v3 are similar with the transfer-learned model outperforming the feature extractor. But considering Inception-v3 requires no extra effort and produces similar results with a linear SVM, one may prefer using it to training from scratch and fine-tuning a pre-trained net.
+The result shows in figure \ref{fig:lovhgmjng} that pre-trained networks are quite competitive against training from scratch. In this figure \ref{fig:lovhgmjng}, VGG16 and CNN are quite similar, whereas the results for Inception-v3 are similar with the transfer-learned model outperforming the feature extractor. But considering Inception-v3 requires no extra effort and produces similar results with a linear SVM, one may prefer using it to training from scratch and fine-tuning a pre-trained net.
 
 In the next article\cite{araujo2017classification}, the authors designed a specific CNN network which perform image-wise classification in four classes of medical relevance: normal tissue, benign lesion, in situ carcinoma and invasive carcinoma. The proposed CNN architecture is designed to integrate information from multiple histological scales, including nuclei, nuclei organization and overall structure organization. A data augmentation method is adopted to increase the number of cases in this training set. A SVM classification using the features extracted by the CNN is also used for comparison purposes.
 
@@ -235,15 +356,15 @@ test set of 16 images is provided with images of increased ambiguity, which they
 
 They first normalized the images. First, the colors of the images are converted to optical density (OD) using a logarithmic transformation. Then, they used singular value decomposition (SVD)  to the OD tuples to find the 2D projections with higher variance. The resulting color space transform is then applied to the original image. Finally, the image histogram is stretched so that the dynamic range covers the lower 90\% of the data.
 
-Then they do two kinds of classification: Image-wise classification and CNN patch-wise classification. Image-wise classification first divided the origin image into twelve contiguous non-overlapping patches and then use one of three different patch patch methods: majority voting, maximum probability and sum of probabilities. CNN patch-wise classification used 75\% of the data to do the training and validated on the remaining images.The validation set is randomly selected for each epoch. The training process stops after the stabilization of the validation accuracy with equal weight for all the classes (50 epochs). The authors also used the features extracted by the CNN to train a SVM classifier to do the comparison. The result can be seen in figure 7, 8 and 9.
+Then they do two kinds of classification: Image-wise classification and CNN patch-wise classification. Image-wise classification first divided the origin image into twelve contiguous non-overlapping patches and then use one of three different patch patch methods: majority voting, maximum probability and sum of probabilities. CNN patch-wise classification used 75\% of the data to do the training and validated on the remaining images.The validation set is randomly selected for each epoch. The training process stops after the stabilization of the validation accuracy with equal weight for all the classes (50 epochs). The authors also used the features extracted by the CNN to train a SVM classifier to do the comparison. The result can be seen in figure\ref{fig:ldgfhong} ,\ref{fig:loghng}and \ref{fig:lomhng}.
 
 \begin{figure}[t]
 	\begin{center}
 		\includegraphics[width=0.8\linewidth]{Pic/13.png}
 	\end{center}
 	\caption{Patch-wise sensitivity (\%) (2 and 4 classes).}
-	\label{fig:long}
-	\label{fig:onecol}
+	\label{fig:ldgfhong}
+
 \end{figure}
 
 \begin{figure}[t]
@@ -251,8 +372,8 @@ Then they do two kinds of classification: Image-wise classification and CNN patc
 		\includegraphics[width=0.8\linewidth]{Pic/15.png}
 	\end{center}
 	\caption{Image-wise accuracy (\%) using different voting rules (2 and 4 classes).}
-	\label{fig:long}
-	\label{fig:onecol}
+	\label{fig:loghng}
+
 \end{figure}
 
 \begin{figure}[t]
@@ -260,11 +381,11 @@ Then they do two kinds of classification: Image-wise classification and CNN patc
 		\includegraphics[width=0.8\linewidth]{Pic/14.png}
 	\end{center}
 	\caption{Image-wise sensitivity (\%) using majority voting (2 and 4 classes).}
-	\label{fig:long}
-	\label{fig:onecol}
+	\label{fig:lomhng}
+
 \end{figure}
 
-In figure 7, we can see the result similar between the CNN and CNN+SVM. But the performance of this network is lower for the extended dataset due to its increased complexity. In figure 8 and 9, we can see that CNN+SVM get the best result with the majority voting method. In comparison, CNN's performance is only better for the extended set using majority voting. In addition, we can see that maximum probability is the worst performing method in both methods, which means that this method is not suit in this case.
+In figure\ref{fig:ldgfhong}, we can see the result similar between the CNN and CNN+SVM. But the performance of this network is lower for the extended dataset due to its increased complexity. In figure \ref{fig:loghng} and \ref{fig:lomhng}, we can see that CNN+SVM get the best result with the majority voting method. In comparison, CNN's performance is only better for the extended set using majority voting. In addition, we can see that maximum probability is the worst performing method in both methods, which means that this method is not suit in this case.
 
 \subsection{Some kinds of lung Diseases Classification}
 
@@ -272,15 +393,15 @@ Lung cancer is notoriously aggressive with a low long-term survival rate. Quanti
 
 In the first article\cite{shen2015multi}, the authors used the LIDC-IDRI datasets, which has 1375 nodule pictures(1100 for training and 275 for testing). In order to improve the speed and accuracy, the authors introduced an Multi-scale Convolutional Neural Networks(MCNN) model to do the lung nodule diagnostic classification. This CNN model take multi-scale raw nodule patches and remove the need of any hand-crafted feature engineering work. This network can also deal with noisy data in nodule CT.
 
-Because of the clinical fact that nodule sizes vary remarkably, this network take patches from different scales(3 layers) as inputs in parallel. The parameter is shared between these layers to reduce parameter. When doing the evaluation task, the result is decided by all the layers. The authors use the HOG and uniform LBP descriptor and SVM and RF classifier to do the classification. The result can be seen in figure 6 and figure 7. In figure 7, the \textit{$S_w$} means the size of the cell window for SVM and \textit{$n_{pt}$} means the number of neighbourhood points for LBP.
+Because of the clinical fact that nodule sizes vary remarkably, this network take patches from different scales(3 layers) as inputs in parallel. The parameter is shared between these layers to reduce parameter. When doing the evaluation task, the result is decided by all the layers. The authors use the HOG and uniform LBP descriptor and SVM and RF classifier to do the classification. The result can be seen in figure \ref{fig:lohj,ng} and figure \ref{fig:lofhgtng}. In figure \ref{fig:lofhgtng}, the \textit{$S_w$} means the size of the cell window for SVM and \textit{$n_{pt}$} means the number of neighbourhood points for LBP.
 
 \begin{figure}[t]
 	\begin{center}
 		\includegraphics[width=0.8\linewidth]{Pic/9.png}
 	\end{center}
 	\caption{The classification performance of SVM with the RBF kernel and RF based on features from the MCNN using 8 different configurations. Each configuration is assigned to a unique ID for display convenience}
-	\label{fig:long}
-	\label{fig:onecol}
+	\label{fig:lohj,ng}
+
 \end{figure}
 
 \begin{figure}[t]
@@ -288,21 +409,21 @@ Because of the clinical fact that nodule sizes vary remarkably, this network tak
 		\includegraphics[width=0.8\linewidth]{Pic/10.png}
 	\end{center}
 	\caption{Performance using the HOG and LBP descriptors with different \textit{$S_w$} and \textit{$n_{pt}$}}
-	\label{fig:long}
-	\label{fig:onecol}
+	\label{fig:lofhgtng}
+
 \end{figure}
 
 The second article\cite{li2014medical} is about using CNN to classify the ILD patterns. This experiment used an ILD database which contains 113 sets of HRCT images, with 2062 2D regions indicting the ILD category. In order to augment the dataset, the CT slices were divided into half-overlapping image and the only if 75\% percent of its pixels falling inside the regions of interest will be adopted. The dataset thus contains 16220 image patches from 92 HRCT image sets,
 including 4348 norm patches, 1047 emphysema patches, 1953 ground glass patches, 2591 fibrosis patches, and 6281 micronodules patches.
 
-The authors compared their classification results with three other feature extraction approaches: SIFT feature, LBP feature and unsupervised feature learning using RBM. The result can be seen in Figure 8. In this figure, we can see that their customized CNN method achieved the best classification preformance.
+The authors compared their classification results with three other feature extraction approaches: SIFT feature, LBP feature and unsupervised feature learning using RBM. The result can be seen in Figure \ref{fig:lobnmng} . In this figure\ref{fig:lobnmng}, we can see that their customized CNN method achieved the best classification preformance.
 
 \begin{figure}[t]
 	\begin{center}
 		\includegraphics[width=0.8\linewidth]{Pic/11.jpg}
 	\end{center}
 	\caption{The classification results comparing proposed customized CNN method with SIFT, LBP and RBM}
-	\label{fig:long}
+	\label{fig:lobnmng}
 	\label{fig:onecol}
 \end{figure}
 
@@ -336,7 +457,7 @@ They first resize these picture to 500*748, and then use 180 of 251 to do the tr
 
 Automated classification of human anatomy is an important prerequisite for many computer-aided diagnosis systems. The spatial complexity and variability of anatomy throughout the human body makes classification difficult. So the authors want to use CNN to do this classification. In this paper, the authors choose to use 4298 separate axial 2D key images to learn 5 anatomical classes(neck, lungs, liver, pelvis and legs)\cite{roth2015anatomy}.
 
-When applying the CNN to build the anatomy-specific classifier for CT images, because the authors want to classify these picture to 5 classes, so they choose 5 cascaded layers. All the convolutional filter kernel elements are trained from the data in a supervised fashion. In order to avoid overfitting, the fully-connected layers are constrained, using the \textit{DropOut} method. The datasets are from the Picture Archiving and Communication System (PACS) of the Clinical Center of the National Institutes of Health. In order to enrich their data, they use spatial deformations to each image, using random translation, rotations and non-rigid deformations, which lead their datasets from hundred's picture to near 100 thousand pictures. Before import into the CNN, the author resize all the picture to 256*256 pixels.The authors use 80\% of their total dataset to train the CNN and reserve 20\% to do the test. After doing the experiments, the accuracy of this net can reach 94.1\%, which can be seen in figure 4.This classification
+When applying the CNN to build the anatomy-specific classifier for CT images, because the authors want to classify these picture to 5 classes, so they choose 5 cascaded layers. All the convolutional filter kernel elements are trained from the data in a supervised fashion. In order to avoid overfitting, the fully-connected layers are constrained, using the \textit{DropOut} method. The datasets are from the Picture Archiving and Communication System (PACS) of the Clinical Center of the National Institutes of Health. In order to enrich their data, they use spatial deformations to each image, using random translation, rotations and non-rigid deformations, which lead their datasets from hundred's picture to near 100 thousand pictures. Before import into the CNN, the author resize all the picture to 256*256 pixels.The authors use 80\% of their total dataset to train the CNN and reserve 20\% to do the test. After doing the experiments, the accuracy of this net can reach 94.1\%, which can be seen in figure \ref{fig:lmnong}.This classification
 result is achieved in less than 1 minute on a modern desktop computer and GPU card (Dell Precision T7500,
 24GB RAM, NVIDIA Titan Z).
 
@@ -344,8 +465,8 @@ result is achieved in less than 1 minute on a modern desktop computer and GPU ca
 	\begin{center}
 		\includegraphics[width=0.8\linewidth]{Pic/1.jpg}
 	\end{center}
-	\caption{Confusion matrices on the original test images before and after data augmentation.} \label{fig:long}
-	\label{fig:onecol}
+	\caption{Confusion matrices on the original test images before and after data augmentation.} \label{fig:lmnong}
+
 \end{figure}
 
 \subsection{Conclusion}
